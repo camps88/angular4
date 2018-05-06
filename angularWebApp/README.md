@@ -1,6 +1,24 @@
 # AngularWebApp
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.7.4.
+Run `npm install -g @angular/cli@latest`
+and then `npm install --save-dev @angular/cli@latest
+          ng update @angular/cli` for the same version on local as global install
+
+#App Routing
+
+To indicate app routes type the following on the command line tool `ng generate module app-routing --flat --module=app` A file like the following will be generated:
+
+`import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+
+@NgModule({
+  imports: [
+    CommonModule
+  ],
+  declarations: []
+})
+export class AppRoutingModule { }` 
 
 ## Development server
 
