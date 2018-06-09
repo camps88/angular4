@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { AuthService } from './auth/auth.service';
+import { ApiService } from './api/api.service';
 
 @Component({
   selector: 'app-root',
@@ -8,7 +9,7 @@ import { AuthService } from './auth/auth.service';
   providers: [AuthService]
 })
 export class AppComponent {
-  title = 'FindIT';
+  title = 'SpotIT';
   constructor(public auth: AuthService) {
     auth.handleAuthentication();
   }

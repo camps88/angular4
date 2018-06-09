@@ -10,10 +10,10 @@ export class AuthService {
   auth0 = new auth0.WebAuth({
     clientID: 'dlENGxZdCZuC-7a2GtP778splrPQMs0U',
     domain: 'gaptfg.eu.auth0.com',
-    responseType: 'code id_token',
-    audience: 'https://gaptfg.eu.auth0.com/',
+    responseType: 'token id_token',
+    audience: 'https://gaptfg.eu.auth0.com/api/v2/',
     redirectUri: 'http://localhost:4200/loading',
-    scope: 'openid'
+    scope: 'openid profile email'
   });
 
   constructor(public router: Router) {}
@@ -28,7 +28,7 @@ export class AuthService {
         console.log("Entra");
         window.location.hash = '';
         this.setSession(authResult);
-        this.router.navigate(['']);
+        this.router.navigate(['/loading']);
       } else if (err) {
         this.router.navigate(['']);
         console.log(err);
@@ -42,6 +42,8 @@ export class AuthService {
     localStorage.setItem('access_token', authResult.accessToken);
     localStorage.setItem('id_token', authResult.idToken);
     localStorage.setItem('expires_at', expiresAt);
+    console.log(authResult.idTokenPayload);
+    //console.log(authResult.idTokenPayload.email);
   }
 
   public logout(): void {
@@ -56,10 +58,12 @@ export class AuthService {
   public isAuthenticated(): boolean {
     // Check whether the current time is past the
     // Access Token's expiry time
-    //const expiresAt = JSON.parse(localStorage.getItem('expires_at'));
-    //return new Date().getTime() < expiresAt;
-    return false;
+    const expiresAt = JSON.parse(localStorage.getItem('expires_at'));
+    return new Date().getTime() < expiresAt;
   }
 
+  public mostrarInfoUsuario (): void {
+    console.log(this.auth0);
+  }
 
 }
