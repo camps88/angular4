@@ -2,10 +2,6 @@
 <br>
 <p>Aquí tienes los resultados de GoogleApiVision: </p>
 <div *ngFor="let item of data.webDetection.fullMatchingImages">
-    <div *ngFor="let link of webLinks">
-      <a href="{{link.url}}">
         <img src="{{item.url}}" alt="Smiley face" height="200" width="200">
-      </a>
-    </div>
 </div>
 <p>{{data.webDetection.pagesWithMatchingImages[0].url}}</p>

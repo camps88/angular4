@@ -1,11 +1,11 @@
 <!--The content below is only a placeholder and can be replaced.-->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 <script type="text/javascript" src="node_modules/auth0-js/build/auth0.js"></script>
 <script src="https://cdn.auth0.com/js/auth0/9.3.1/auth0.min.js"></script>
 <nav class="navbar navbar-default">
   <div class="container-fluid">
     <div class="navbar-header">
-      <a class="navbar-brand" href="#">Auth0 - Angular</a>
+      <a class="navbar-brand" href="#">SpotIT!</a>
 
       <button
         class="btn btn-primary btn-margin"
@@ -35,4 +35,97 @@
     </h1>
   </div>
   <router-outlet></router-outlet>
-</main>
+</main>-->
+<!DOCTYPE html>
+<html>
+<head>
+  <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+  <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+  <div id="throbber" style="display:none; min-height:120px;"></div>
+  <div id="noty-holder"></div>
+  <div id="wrapper">
+      <!-- Navigation -->
+      <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="icon-bar">
+          <div class="rox">
+            <div class="col-md-3">
+              <button
+              class="btn btn-primary btn-margin"
+              *ngIf="!auth.isAuthenticated()"
+              (click)="auth.login()">
+                Log In
+              </button>
+              <button
+                class="btn btn-primary btn-margin"
+                *ngIf="auth.isAuthenticated()"
+                (click)="auth.logout()">
+                  Log Out
+              </button>
+            </div>
+            <div class="col-md-9">
+              <img src=userAvatarImage alt="Avatar" class="avatar">
+            </div>
+          </div>
+        </div>
+          <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav side-nav">
+                <li>
+                    <a href="#"><i class="fa fa-fw fa-search"></i> RECIENTES </a>
+                </li>
+                <li>
+                    <a href="#"><i class="fa fa-fw fa-star"></i> POPULARES  </a>
+                </li>
+                <li>
+                    <a href="#"><i class="fa fa-fw fa fa-heart"></i> FAVORITOS </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div id="page-wrapper">
+        <div class="container-fluid">
+            <!-- Page Heading -->
+            <div class="row" id="main" >
+                <script>
+                    (function() {
+                      var cx = '014899129568475050489:mzgfwcuvxte';
+                      var gcse = document.createElement('script');
+                      gcse.type = 'text/javascript';
+                      gcse.async = true;
+                      gcse.src = 'https://cse.google.com/cse.js?cx=' + cx;
+                      var s = document.getElementsByTagName('script')[0];
+                      s.parentNode.insertBefore(gcse, s);
+                    })();
+                </script>
+                <div class="col-sm-12 col-md-12 well" id="content">
+                    <div class="row">
+                      <div class="col-sm-6">
+                        <h1 style="text-align: center">Welcome Admin!</h1>
+                      </div>
+                      <div class="col-sm-3 searchBar">
+                        <form>
+                          <div>
+                            <input type="search" id="miBusqueda" name="q">
+                            <button>Buscar</button>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /.row -->
+        </div>
+        <!-- /.container-fluid -->
+        <gcse:search></gcse:search>
+    </div>
+    <router-outlet></router-outlet>
+    <!-- /#page-wrapper -->
+</div><!-- /#wrapper -->
+  <script src="js/jquery.js"></script>
+  <script src="js/bootstrap.js"></script>
+</body>
+</html>

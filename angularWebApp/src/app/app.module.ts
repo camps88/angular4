@@ -1,24 +1,31 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { LoadingComponent } from './loading/loading.component';
 import { AppRoutingModule } from './/app-routing.module';
 import { ApiService } from './api/api.service';
+import { HomeComponent } from './home/home.component';
+import { SignupComponent } from './signup/signup.component';
+import { FileDropModule } from 'ngx-file-drop';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoadingComponent
+    LoadingComponent,
+    HomeComponent,
+    SignupComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    FileDropModule
   ],
   providers: [ApiService],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  schemas: [NO_ERRORS_SCHEMA]
 })
 export class AppModule { }

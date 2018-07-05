@@ -1,0 +1,58 @@
+* {
+    box-sizing: border-box;
+}
+
+@media(min-width:768px) {
+
+}
+
+/* Create three equal columns that floats next to each other */
+.column {
+    float: left;
+    width: 280px;
+    padding: 10px;
+    height: 225px; /* Should be removed. Only for demonstration */
+    border: 0.5px solid black;
+    vertical-align: middle;
+}
+.column1{
+
+  width: 108%;
+  height: 110%;
+  margin-top: -30px;
+  margin-left: -9px;
+  opacity: 0.3;
+  filter: alpha(opacity=50);
+  background-size: 279px 223px;
+}
+.column1:hover {
+  opacity: 0.2;
+  filter: alpha(opacity=50);
+}
+.column1:hover,.h2:hover{
+  opacity: 0.8;
+}
+
+/* Clear floats after the columns */
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.center{
+  text-align: center;
+  width: 90%;
+  padding-left: 8%;
+}
+
+.recentBack{
+    width: fit-content;
+    max-width: 303px;
+    background-size: contain;
+    position: fixed;
+    margin-left: -10px;
+    height: 540px;
+    margin-top: -10px;
+    z-index: -1;
+}

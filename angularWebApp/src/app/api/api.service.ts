@@ -11,10 +11,8 @@ export class ApiService {
 
   constructor(private http: HttpClient) { }
 
-  uploadImage() {
-    let body = {
-      imageUri: 'gs://gapbbdd/camiseta2.jpg'
-    }
-    return this.http.post('http://localhost:3003/image', body, httpOptions);
+  uploadImage(imageBase64) {
+    let body = imageBase64;
+    return this.http.post('http://localhost:3003/user/5b26456e48bca309c0dd9969/image', body, httpOptions);
   }
 }

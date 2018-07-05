@@ -3,6 +3,13 @@ import { Router } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import * as auth0 from 'auth0-js';
 import root from 'window-or-global'
+import { HttpClient, HttpHeaders, HttpClientModule } from '@angular/common/http';
+import {RequestOptions, Request, Headers } from '@angular/http';
+
+const httpOptions = {
+    headers: new HttpHeaders({ 'Content-Type': 'application/json',
+                               'Access-Control-Allow-Origin':'*'})
+};
 
 @Injectable()
 export class AuthService {
@@ -12,11 +19,16 @@ export class AuthService {
     domain: 'gaptfg.eu.auth0.com',
     responseType: 'token id_token',
     audience: 'https://gaptfg.eu.auth0.com/api/v2/',
-    redirectUri: 'http://localhost:4200/loading',
+    redirectUri: 'http://localhost:4200/signup',
     scope: 'openid profile email'
   });
 
-  constructor(public router: Router) {}
+  userAvatar = '';
+
+  constructor(public router: Router,
+              private http: HttpClient) {}
+
+
 
   public login(): void {
     this.auth0.authorize();
@@ -28,7 +40,7 @@ export class AuthService {
         console.log("Entra");
         window.location.hash = '';
         this.setSession(authResult);
-        this.router.navigate(['/loading']);
+        this.router.navigate(['/']);
       } else if (err) {
         this.router.navigate(['']);
         console.log(err);
@@ -43,7 +55,24 @@ export class AuthService {
     localStorage.setItem('id_token', authResult.idToken);
     localStorage.setItem('expires_at', expiresAt);
     console.log(authResult.idTokenPayload);
-    //console.log(authResult.idTokenPayload.email);
+    let user = { firstName: authResult.idTokenPayload.given_name,
+                 lastName: authResult.idTokenPayload.family_name,
+                 fullName: authResult.idTokenPayload.name
+               };
+    console.log(user);
+    this.userAvatar = authResult.idTokenPayload.picture;
+    console.log(this.userAvatar);
+
+    let userId = this.http.post('http://localhost:3003/auth', user, httpOptions)
+        .subscribe(data => {
+          console.log(data);
+        });
+    console.log(userId);
+  //  let userObjectId =
+  //    this.http.post('http://localhost:3003/auth', user, httpOptions).subscribe(data => {
+  //          console.log(data);
+  //    });
+  //  console.log(this.http.post('http://localhost:3003/auth', user, httpOptions));
   }
 
   public logout(): void {
@@ -52,7 +81,7 @@ export class AuthService {
     localStorage.removeItem('id_token');
     localStorage.removeItem('expires_at');
     // Go back to the home route
-    this.router.navigate(['/']);
+    this.router.navigate(['/signup']);
   }
 
   public isAuthenticated(): boolean {
@@ -66,4 +95,11 @@ export class AuthService {
     console.log(this.auth0);
   }
 
+  public getUserAvatarImage() {
+    let userImage;
+    this.auth0.parseHash((err, authResult) => {
+      userImage = authResult.idTokenPayload.picture;
+    });
+    console.log(userImage);
+  }
 }

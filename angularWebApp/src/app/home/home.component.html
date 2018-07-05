@@ -1,0 +1,40 @@
+<!--<form>
+  <input type="file" id="image" (change)="onFileChange($event)" #fileInput>
+</form>-->
+<div class="center">
+<file-drop headertext="Drop image files here" (onFileDrop)="dropped($event)"
+(onFileOver)="fileOver($event)" (onFileLeave)="fileLeave($event)">
+    <span>+</span>
+</file-drop>
+<div class="upload-table">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Name</th>
+            </tr>
+        </thead>
+        <tbody class="upload-name-style">
+            <tr *ngFor="let item of files; let i=index">
+                <td><strong>{{ item.relativePath }}</strong></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+</div>
+<div class="row" style="margin-left: 30%; height:80px;" >
+  <div class="column">
+    <div class="column1" style="background-image: url('../../assets/images/pexels-photo-374074.jpeg')">
+      <h2 style="text-align: center; vertical-align: middle;padding-top: 36%">Recientes</h2>
+    </div>
+  </div>
+  <div class="column">
+    <div class="column1" style="background-image: url('../../assets/images/populars_back.jpg')">
+      <h2 style="text-align: center; vertical-align: middle;padding-top: 36%">Populares</h2>
+    </div>
+  </div>
+  <div class="column" style="background-color:transparent;">
+    <div class="column1" style="background-image: url('../../assets/images/favorites_back.jpg')">
+      <h2 style="text-align: center; vertical-align: middle;padding-top: 36%">Favoritos</h2>
+    </div>
+  </div>
+</div>
