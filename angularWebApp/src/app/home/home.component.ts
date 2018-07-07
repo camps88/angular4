@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../api/api.service'
+import { UploadEvent, UploadFile } from 'ngx-file-drop';
 
 @Component({
   selector: 'app-home',
@@ -9,18 +10,37 @@ import { ApiService } from '../api/api.service'
 export class HomeComponent implements OnInit {
 
   constructor(private apiService: ApiService) { }
-
+  showHome: boolean;
   ngOnInit() {
+    this.showHome = true;
   }
   data: any = {};
   user: any;
   webLinks = [];
 
-  onFileChange(event) {
+  dropFile (event) {
+    console.log(event);
+    console.log(event.dataTransfer.files);
+    event.preventDefault();
+    let dropZone = document.getElementById('dropzone');
+    dropZone.className = 'dropzone';
+    this.encodeFile(event);
+  }
+
+  dragOver(event){
+    let dropZone = document.getElementById('dropzone');
+    dropZone.className = 'dropzone dragover';
+    event.stopPropagation();
+    event.preventDefault();
+  }
+
+  encodeFile(event) {
+    this.showHome = false;
     let reader = new FileReader();
-    if(event.target.files && event.target.files.length > 0) {
-      let file = event.target.files[0];
-        console.log(file);
+    console.log('entra en encode');
+    if(event.dataTransfer.files && event.dataTransfer.files.length > 0) {
+      let file = event.dataTransfer.files[0];
+      console.log(file);
       reader.readAsDataURL(file);
       reader.onload = () => {
         let imageUploaded = { imageBase64 : reader.result.split(',')[1] };
@@ -36,5 +56,6 @@ export class HomeComponent implements OnInit {
       }
     }
   }
+
 
 }

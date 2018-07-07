@@ -5,14 +5,26 @@
 @media(min-width:768px) {
 
 }
+.dropzone{
+  width: 950px;
+  height: 200px;
+  border: 2px dashed #ccc;
+  color: #ccc;
+  line-height: 200px;
+  text-align: center;
+}
 
+.dropzone.dragover{
+  border-color: #000;
+  color: #000;
+}
 /* Create three equal columns that floats next to each other */
 .column {
     float: left;
     width: 280px;
     padding: 10px;
     height: 225px; /* Should be removed. Only for demonstration */
-
+    margin-right: 3px;
     vertical-align: middle;
 }
 .column1{
@@ -20,7 +32,7 @@
   width: 108%;
   height: 110%;
   margin-top: -30px;
-  margin-left: -9px;
+  margin-left: -180px;
   opacity: 0.3;
   filter: alpha(opacity=50);
   background-size: 281px 225px;
@@ -55,4 +67,16 @@
     height: 540px;
     margin-top: -10px;
     z-index: -1;
+}
+
+.fas.fa-camera {
+  transform: scale(3);
+  padding-top: 20px;
+  text-align: center;
+}
+
+.cameraIcon {
+  text-align: center;
+  margin-top: 10px;
+  margin-bottom: 50px;
 }

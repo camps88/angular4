@@ -8,7 +8,6 @@ import { AppRoutingModule } from './/app-routing.module';
 import { ApiService } from './api/api.service';
 import { HomeComponent } from './home/home.component';
 import { SignupComponent } from './signup/signup.component';
-import { FileDropModule } from 'ngx-file-drop';
 
 
 @NgModule({
@@ -22,7 +21,6 @@ import { FileDropModule } from 'ngx-file-drop';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FileDropModule
   ],
   providers: [ApiService],
   bootstrap: [AppComponent],

@@ -176,3 +176,20 @@ input:valid ~ span:after {
   float: right;
   padding-top: 2%;
 }
+
+.footer{
+  text-align: center;
+  margin: 200px;
+}
+
+.btn.btn-primary.btn-margin{
+  padding-left: -50px;
+}
+
+nav.navbar.navbar-inverse.navbar-fixed-top{
+  height: 63px;
+}
+
+ul.nav.navbar-nav.side-nav{
+  margin-top: -9px;
+}
