@@ -20,7 +20,7 @@
       </table>
   </div>
   <div class="cameraIcon"><i class="fas fa-camera"></i></div>
-  <div class="row" style="margin-left: 30%; height:80px;" >
+  <div class="row" style="margin-left: 10%; height:80px;" >
     <div class="column">
       <div class="column1" style="background-image: url('../../assets/images/pexels-photo-374074.jpeg')">
         <h2 style="text-align: center; vertical-align: middle;padding-top: 36%">Recientes</h2>
@@ -38,4 +38,15 @@
     </div>
   </div>
 </div>
-<div *ngIf="!showHome">Esto es lo que sale despues de subir la imagen</div>
+<div *ngIf="!showHome">
+  <div *ngFor="let result of webLinks" [result]="result">
+    <div class="card" style="width: 18rem;">
+      <img class="card-img-top" src="{{result.imageLink}}" alt="Card image cap">
+      <div class="card-body">
+        <h5 class="card-title">{{result.shopLink}}</h5>
+        <p class="card-text">{{result.title}}</p>
+        <a href="{{result.webLink}}" class="btn btn-primary" target="_blank">Go</a>
+      </div>
+    </div>
+  </div>
+</div>

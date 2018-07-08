@@ -17,6 +17,7 @@ export class HomeComponent implements OnInit {
   data: any = {};
   user: any;
   webLinks = [];
+  results = {};
 
   dropFile (event) {
     console.log(event);
@@ -45,17 +46,30 @@ export class HomeComponent implements OnInit {
       reader.onload = () => {
         let imageUploaded = { imageBase64 : reader.result.split(',')[1] };
         console.log(imageUploaded);
-        this.apiService.uploadImage(imageUploaded).subscribe(data => {
-            console.log(data);
-            this.data = data;
-            for (let i=0; i < this.data.webDetection.pagesWithMatchingImages.length; i++) {
-              this.webLinks.push(this.data.webDetection.pagesWithMatchingImages[i]);
-            }
-          }
-        );
+        this.uploadImage(imageUploaded);
       }
     }
   }
 
+  uploadImage(imageUploaded) {
+    this.apiService.uploadImage(imageUploaded).subscribe(data => {
+        this.data = data;
+        console.log(this.data);
+        let items = this.data.image.items;
+        for (let i=0; i < items.length; i++) {
+            if (items[i].pagemap) {
+              this.results = {
+                title: items[i].title,
+                shopLink: items[i].displayLink,
+                webLink: items[i].link,
+                imageLink: items[i].pagemap.cse_image[0].src,
+              }
+              this.webLinks.push(this.results);
+              console.log(this.webLinks);
+            }
+        }
+      }
+    );
+  }
 
 }

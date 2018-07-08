@@ -13,6 +13,6 @@ export class ApiService {
 
   uploadImage(imageBase64) {
     let body = imageBase64;
-    return this.http.post('http://localhost:3003/user/5b26456e48bca309c0dd9969/image', body, httpOptions);
+    return this.http.post('http://localhost:3003/user/5b4249d390940a4cf732de34/image', body, httpOptions);
   }
 }

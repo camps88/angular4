@@ -21,7 +21,7 @@
 /* Create three equal columns that floats next to each other */
 .column {
     float: left;
-    width: 280px;
+    width: 250px;
     padding: 10px;
     height: 225px; /* Should be removed. Only for demonstration */
     margin-right: 3px;
@@ -32,7 +32,6 @@
   width: 108%;
   height: 110%;
   margin-top: -30px;
-  margin-left: -180px;
   opacity: 0.3;
   filter: alpha(opacity=50);
   background-size: 281px 225px;
@@ -79,4 +78,19 @@
   text-align: center;
   margin-top: 10px;
   margin-bottom: 50px;
+}
+
+.container{
+  position: relative;
+}
+
+.card {
+  text-align: center;
+  margin-left: 100px;
+  float: left;
+}
+
+.card-img-top{
+  width: 200px;
+  height: auto;
 }

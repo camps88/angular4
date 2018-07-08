@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from './auth/auth.service';
 import { ApiService } from './api/api.service';
-
+import { AuthService } from './auth/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -11,13 +10,15 @@ import { ApiService } from './api/api.service';
 })
 export class AppComponent {
   title = 'SpotIT';
-  constructor(public auth: AuthService) {
+
+  constructor(public auth : AuthService) {
     auth.handleAuthentication();
-  }
-  ngOnInit() {
-  //  let userAvatarImage = this.auth.getUserAvatarImage();
+    let user = auth.getUserInfo();
+    console.log(user);
+    // let userName = user.firstName;
   }
 
+  ngOnInit() {}
 
 
 }
