@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../api/api.service'
 import { UploadEvent, UploadFile } from 'ngx-file-drop';
 
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',

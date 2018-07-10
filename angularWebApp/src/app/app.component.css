@@ -198,8 +198,9 @@ input:valid ~ span:after {
 
 nav.navbar.navbar-inverse.navbar-fixed-top{
   height: 63px;
+  position: fixed !important;
 }
 
 ul.nav.navbar-nav.side-nav{
-  margin-top: -9px;
+  margin-top: -8px;
 }

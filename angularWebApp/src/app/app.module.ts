@@ -8,6 +8,7 @@ import { AppRoutingModule } from './/app-routing.module';
 import { ApiService } from './api/api.service';
 import { HomeComponent } from './home/home.component';
 import { SignupComponent } from './signup/signup.component';
+import { RecentSearchesComponent } from './recent-searches/recent-searches.component';
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import { SignupComponent } from './signup/signup.component';
     AppComponent,
     LoadingComponent,
     HomeComponent,
-    SignupComponent
+    SignupComponent,
+    RecentSearchesComponent,
   ],
   imports: [
     BrowserModule,
