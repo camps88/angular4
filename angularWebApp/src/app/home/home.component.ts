@@ -12,13 +12,26 @@ export class HomeComponent implements OnInit {
 
   constructor(private apiService: ApiService) { }
   showHome: boolean;
+  filtered: boolean;
+  hideResults: boolean;
+  checkboxEbay: boolean;
+  checkboxAmazon: boolean;
+
   ngOnInit() {
     this.showHome = true;
+    this.filtered = false;
+    this.hideResults = false;
   }
   data: any = {};
+  dataFiltered: any = {};
   user: any;
   webLinks = [];
+  webLinksFiltered = [];
   results = {};
+  filters = [];
+  filteredResults = {};
+  image: any;
+
 
   dropFile (event) {
     console.log(event);
@@ -53,6 +66,7 @@ export class HomeComponent implements OnInit {
   }
 
   uploadImage(imageUploaded) {
+    this.image = imageUploaded;
     this.apiService.uploadImage(imageUploaded).subscribe(data => {
         this.data = data;
         console.log(this.data);
@@ -71,6 +85,49 @@ export class HomeComponent implements OnInit {
         }
       }
     );
+  }
+
+  applyFilters(event) {
+    this.hideResults = true;
+    console.log(event.target.value);
+    if (event.target.checked) {
+        this.filters.push(event.target.value);
+    }else {
+      if (event.target.value === 'amazon') {
+        this.filters.push('ebay');
+      }else {
+        this.filters.push('amazon');
+      }
+    }
+    if (this.filters.length > 1) {
+      this.filters=[];
+    }
+    console.log(this.filters);
+  }
+
+  getResults() {
+    if (this.filters.length < 1) {
+      this.uploadImage(this.image);
+    }else {
+      console.log(this.filters);
+      this.apiService.sendFilters(this.filters, this.data.idImage).subscribe(result => {
+          this.dataFiltered = result;
+          console.log(this.dataFiltered);
+          let itemsFiltered = this.dataFiltered.items;
+          for (let i=0; i < itemsFiltered.length; i++) {
+              if (itemsFiltered[i].pagemap) {
+                this.filteredResults = {
+                  title: itemsFiltered[i].title,
+                  shopLink: itemsFiltered[i].displayLink,
+                  webLink: itemsFiltered[i].link,
+                  imageLink: itemsFiltered[i].pagemap.cse_image[0].src,
+                }
+                this.webLinksFiltered.push(this.filteredResults);
+                console.log(this.webLinksFiltered);
+              }
+          }
+        });
+    }
   }
 
 }

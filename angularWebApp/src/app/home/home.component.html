@@ -5,6 +5,7 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
     <link rel="stylesheet" href="https://unpkg.com/flickity@2.0/dist/flickity.min.css">
     <link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -54,55 +55,43 @@
         </div>
       </div>
       <div class="container">
-        <ul class="nav nav-pills nav-justified">
-          <li><a href="#">Amazon</a></li>
-          <li><a href="#">eBay</a></li>
-          <li><a href="#"></a></li>
-        </ul>
-      </div>
-      <br/>
-      <div class="carousel-wrapper">
-  <div class="carousel" data-flickity>
-    <div class="carousel-cell">
-      <h3>Product 1</h3>
-      <a class="more" href="">Explore more</a>
-      <img src="https://images.unsplash.com/photo-1464305795204-6f5bbfc7fb81?dpr=2&auto=format&fit=crop&w=1500&h=1000&q=80&cs=tinysrgb&crop=" />
-      <div class="line"></div>
-      <div class="price">
-        <span>225<sup>€</sup></span>
-      </div>
-    </div>
-    <div class="carousel-cell">
-      <h3>Product 2</h3>
-      <a class="more" href="">Explore more</a>
-      <img src="https://images.unsplash.com/photo-1464305795204-6f5bbfc7fb81?dpr=2&auto=format&fit=crop&w=1500&h=1000&q=80&cs=tinysrgb&crop=" />
-      <div class="line"></div>
-      <div class="price">
-        <span>225<sup>€</sup></span>
-      </div>
-    </div>
-    <div class="carousel-cell">
-      <h3>Product 3</h3>
-      <a class="more" href="">Explore more</a>
-      <img src="https://images.unsplash.com/photo-1464305795204-6f5bbfc7fb81?dpr=2&auto=format&fit=crop&w=1500&h=1000&q=80&cs=tinysrgb&crop=" />
-      <div class="line"></div>
-      <div class="price">
-        <span>225<sup>€</sup></span>
-      </div>
-    </div>
-  </div>
-</div>
-
-      <div *ngFor="let result of webLinks" [result]="result">
-        <div class="card" style="max-width: 18rem; max-height:50rem; float: left;">
-          <img class="card-img-top" src="{{result.imageLink}}" style="max-width: 18rem; height: 20rem; border: 1px solid grey;" alt="Card image cap">
-          <div class="card-body">
-            <h5 class="card-title">{{result.shopLink}}</h5>
-            <p class="card-text">{{result.title}}</p>
-            <a href="{{result.webLink}}" class="btn btn-primary" target="_blank">Go</a>
+          <div class="form-check-inline">
+            <label class="form-check-label" for="check2">
+              <input type="checkbox" class="form-check-input" id="amazon" value="amazon" (click)="applyFilters($event)">Amazon
+            </label>
           </div>
+          <div class="form-check-inline">
+            <label class="form-check-label">
+              <input type="checkbox" class="form-check-input" id="ebay" value="ebay" (click)="applyFilters($event)">eBay
+            </label>
+          </div>
+          <button class="btn btn-primary" (click)="getResults()">Submit</button>
         </div>
 
+      <br/>
+      <div *ngIf="!filtered">
+        <div *ngFor="let result of webLinks" [result]="result">
+          <div class="card" style="max-width: 18rem; max-height:50rem; float: left;">
+            <img class="card-img-top" src="{{result.imageLink}}" style="max-width: 18rem; height: 20rem; border: 1px solid grey;" alt="Card image cap">
+            <div class="card-body">
+              <h5 class="card-title">{{result.shopLink}}</h5>
+              <p class="card-text">{{result.title}}</p>
+              <a href="{{result.webLink}}" class="btn btn-primary" target="_blank">Go</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="filtered">
+        <div *ngFor="let result of webLinksFiltered" [result]="result">
+          <div class="card" style="max-width: 18rem; max-height:50rem; float: left;">
+            <img class="card-img-top" src="{{result.imageLink}}" style="max-width: 18rem; height: 20rem; border: 1px solid grey;" alt="Card image cap">
+            <div class="card-body">
+              <h5 class="card-title">{{result.shopLink}}</h5>
+              <p class="card-text">{{result.title}}</p>
+              <a href="{{result.webLink}}" class="btn btn-primary" target="_blank">Go</a>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
