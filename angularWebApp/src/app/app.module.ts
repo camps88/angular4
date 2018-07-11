@@ -9,6 +9,8 @@ import { ApiService } from './api/api.service';
 import { HomeComponent } from './home/home.component';
 import { SignupComponent } from './signup/signup.component';
 import { RecentSearchesComponent } from './recent-searches/recent-searches.component';
+import { FavoritesComponent } from './favorites/favorites.component';
+import { PopularSearchesComponent } from './popular-searches/popular-searches.component';
 
 
 @NgModule({
@@ -18,6 +20,8 @@ import { RecentSearchesComponent } from './recent-searches/recent-searches.compo
     HomeComponent,
     SignupComponent,
     RecentSearchesComponent,
+    FavoritesComponent,
+    PopularSearchesComponent,
   ],
   imports: [
     BrowserModule,
