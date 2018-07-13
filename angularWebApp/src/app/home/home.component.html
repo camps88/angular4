@@ -18,9 +18,6 @@
       <div class="upload-table">
           <table class="table">
               <thead>
-                  <tr>
-                      <th>Name</th>
-                  </tr>
               </thead>
               <tbody class="upload-name-style">
                   <tr *ngFor="let item of files; let i=index">
@@ -50,7 +47,17 @@
     </div>
     <div *ngIf="!showHome">
       <div class="row">
-        <div class="column" style="background-color: #1e81bb; margin-left: 80px; width: 87%; margin-bottom: 4%; opacity: 0.4;">
+        <div class="column" style="background-color: #112233; width: 100%; margin-bottom: 4%; margin-top: -3%; opacity: 0.4;">
+          <div *ngIf="favorite">
+            <button class="btn" (click)="setFavorite($event)" style="float: right; margin-right: 30px;">
+              <i class="fa fa-star fa-2x checked" id="favorite"></i>
+            </button>
+          </div>
+          <div *ngIf="!favorite">
+            <button class="btn" (click)="setFavorite($event)" style="float: right; margin-right: 30px;">
+              <i class="fa fa-star fa-2x" id="nofavorite"></i>
+            </button>
+          </div>
           <div class="circular--landscape"><img class="image" src="../assets/images/imageSearched_ex.jpg" /></div>
         </div>
       </div>
@@ -66,10 +73,8 @@
             </label>
           </div>
           <button class="btn btn-primary" (click)="getResults()">Submit</button>
-        </div>
-
+      </div>
       <br/>
-      <div *ngIf="!filtered">
         <div *ngFor="let result of webLinks" [result]="result">
           <div class="card" style="max-width: 18rem; max-height:50rem; float: left;">
             <img class="card-img-top" src="{{result.imageLink}}" style="max-width: 18rem; height: 20rem; border: 1px solid grey;" alt="Card image cap">
@@ -80,19 +85,6 @@
             </div>
           </div>
         </div>
-      </div>
-      <div *ngIf="filtered">
-        <div *ngFor="let result of webLinksFiltered" [result]="result">
-          <div class="card" style="max-width: 18rem; max-height:50rem; float: left;">
-            <img class="card-img-top" src="{{result.imageLink}}" style="max-width: 18rem; height: 20rem; border: 1px solid grey;" alt="Card image cap">
-            <div class="card-body">
-              <h5 class="card-title">{{result.shopLink}}</h5>
-              <p class="card-text">{{result.title}}</p>
-              <a href="{{result.webLink}}" class="btn btn-primary" target="_blank">Go</a>
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
     <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>

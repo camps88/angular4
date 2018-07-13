@@ -13,6 +13,7 @@ import { FavoritesComponent } from './favorites/favorites.component';
 import { PopularSearchesComponent } from './popular-searches/popular-searches.component';
 
 
+
 @NgModule({
   declarations: [
     AppComponent,

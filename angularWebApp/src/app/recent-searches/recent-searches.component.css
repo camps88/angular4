@@ -29,3 +29,14 @@
     display: table;
     clear: both;
 }
+
+.card {
+  text-align: center;
+  margin-left: 100px;
+  float: left;
+}
+
+.card-img-top{
+  width: 200px;
+  height: auto;
+}

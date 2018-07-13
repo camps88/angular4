@@ -17,6 +17,7 @@ export class HomeComponent implements OnInit {
   checkboxEbay: boolean;
   checkboxAmazon: boolean;
 
+
   ngOnInit() {
     this.showHome = true;
     this.filtered = false;
@@ -31,6 +32,8 @@ export class HomeComponent implements OnInit {
   filters = [];
   filteredResults = {};
   image: any;
+  favorite: boolean = false;
+  state: any;
 
 
   dropFile (event) {
@@ -88,7 +91,6 @@ export class HomeComponent implements OnInit {
   }
 
   applyFilters(event) {
-    this.hideResults = true;
     console.log(event.target.value);
     if (event.target.checked) {
         this.filters.push(event.target.value);
@@ -106,9 +108,12 @@ export class HomeComponent implements OnInit {
   }
 
   getResults() {
+    this.webLinks = [];
+    // this.webLinksFiltered = [];
     if (this.filters.length < 1) {
       this.uploadImage(this.image);
     }else {
+      this.filtered = true;
       console.log(this.filters);
       this.apiService.sendFilters(this.filters, this.data.idImage).subscribe(result => {
           this.dataFiltered = result;
@@ -122,12 +127,26 @@ export class HomeComponent implements OnInit {
                   webLink: itemsFiltered[i].link,
                   imageLink: itemsFiltered[i].pagemap.cse_image[0].src,
                 }
-                this.webLinksFiltered.push(this.filteredResults);
+                this.webLinks.push(this.filteredResults);
                 console.log(this.webLinksFiltered);
               }
           }
         });
     }
   }
+
+  setFavorite (event) {
+    console.warn(event);
+    if (document.getElementById('favorite')) {
+      this.favorite = false;
+    }else {
+      this.favorite = true;
+    }
+    this.apiService.setFavorite(this.data.idImage).subscribe(data => {
+      console.log(data);
+      this.state = data;
+    });
+  }
+
 
 }

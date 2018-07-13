@@ -1,0 +1,54 @@
+.column {
+    float: left;
+    width: 250px;
+    padding: 10px;
+    height: 225px; /* Should be removed. Only for demonstration */
+    margin-right: 3px;
+    vertical-align: middle;
+}
+.column1{
+
+  width: 108%;
+  height: 110%;
+  margin-top: -30px;
+  opacity: 0.3;
+  filter: alpha(opacity=50);
+  background-size: 281px 225px;
+}
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.circular--landscape {
+  display: inline-block;
+  position: relative;
+  width: 150px;
+  height: 150px;
+  overflow: hidden;
+  border-radius: 50%;
+  margin-left: 43%;
+  margin-top: 2%;
+}
+
+.circular--landscape img {
+  width: auto;
+  height: 100%;
+  margin-left: -70px;
+}
+
+.checked {
+    color: orange;
+}
+
+.card {
+  text-align: center;
+  margin-left: 100px;
+  float: left;
+}
+
+.card-img-top{
+  width: 200px;
+  height: auto;
+}

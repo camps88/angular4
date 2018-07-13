@@ -30,4 +30,22 @@ export class ApiService {
     console.log(uri);
     return this.http.get(uri, httpOptions);
   }
+
+  getRecentSearches () {
+    return this.http.get('http://localhost:3003/user/5b4249d390940a4cf732de34/recentSearches/', httpOptions);
+  }
+
+  setFavorite (idImage) {
+    console.warn(idImage);
+    return this.http.put('http://localhost:3003/user/5b4249d390940a4cf732de34/image/' + idImage, httpOptions);
+  }
+
+  getFavorites () {
+    return this.http.get('http://localhost:3003/user/5b4249d390940a4cf732de34/favoriteSearches', httpOptions);
+  }
+
+  getPopulars () {
+    return this.http.get('http://localhost:3003/popularSearches', httpOptions);
+  }
+
 }
