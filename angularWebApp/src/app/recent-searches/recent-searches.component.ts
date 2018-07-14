@@ -11,32 +11,48 @@ export class RecentSearchesComponent implements OnInit {
 
 
   constructor(private apiService: ApiService,
-              private _domSanitizer: DomSanitizer) { }
+              private _DomSanitizer: DomSanitizer) { }
 
   data: any = {};
   results = {};
+  items: Array<Object[]>;
   webLinks = [];
   description = [];
   elements = [];
-  originalImage: SafeUrl;
+  originalImage: SafeResourceUrl;
+  show:boolean;
 
 
     ngOnInit() {
+      this.show = false;
       this.webLinks = [];
       this.apiService.getRecentSearches().subscribe(data => {
         this.data = data;
         console.log(this.data);
         let items = this.data;
-        for (let i=0; i < items.length; i++) {
-          this.originalImage = this._domSanitizer.bypassSecurityTrustUrl(this.data[i].originalImage);
-          console.log(this.originalImage);
-          this.results = {
-            image: this.originalImage,
-            title: items[i].displayLink,
-            items: items[i].content.items,
+        if (items !== undefined) {
+          for (let i=0; i < items.length; i++) {
+            let titleShorted = items[i].description[0].slice(0,25) + '...';
+            console.log(titleShorted);
+            this.results = {
+              id: items[i]._id,
+              image: items[i].originalImage,
+              title: titleShorted,
+              items: items[i].content.items,
+            }
+            this.webLinks.push(this.results);
+            this.success = true;
           }
-          this.webLinks.push(this.results);
+        }else {
+          this.success = false;
         }
+
+        console.log(this.webLinks);
       });
+    }
+
+    showItems(results) {
+      this.show = true;
+      return this.items = results;
     }
 }

@@ -5,12 +5,13 @@
 }
 
 .dropzone{
-  width: 950px;
-  height: 200px;
+  width: 100%;
+  height: auto;
   border: 2px dashed #ccc;
   color: #ccc;
   line-height: 200px;
   text-align: center;
+  font-size: 20px;
 }
 
 .dropzone.dragover{
@@ -69,14 +70,29 @@
 
 .fas.fa-camera {
   transform: scale(3);
-  padding-top: 20px;
+  text-align: center;
+}
+
+.fas.fa-times {
+  transform: scale(3);
+  text-align: center;
+}
+
+.fa.fa-plus-circle {
+  transform: scale(3);
   text-align: center;
 }
 
 .cameraIcon {
   text-align: center;
-  margin-top: 10px;
   margin-bottom: 50px;
+  margin-left: 0%;
+}
+
+.dropIcon {
+  text-align: center;
+  margin-bottom: 50px;
+  margin-left: 0%;
 }
 
 .container{
@@ -105,14 +121,17 @@
   margin-top: 2%;
 }
 
+
+
 .circular--landscape img {
   width: auto;
   height: 100%;
   margin-left: -70px;
 }
 
+
 .checked {
-    color: orange;
+    color: #d85948;
 }
 
 

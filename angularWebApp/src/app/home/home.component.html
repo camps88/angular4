@@ -26,39 +26,80 @@
               </tbody>
           </table>
       </div>
-      <div class="cameraIcon"><i class="fas fa-camera"></i></div>
+      <div style="font-size: 20px; font-family: Roboto sans-seriff; color: #112233">Or take a picture from your webcam!</div>
+      <br/>
+      <br/>
+      <button class="cameraIcon" (click)="hideView()"><i class="fas fa-camera"></i></button>
       <div class="row" style="margin-left: 10%; height:80px;" >
         <div class="column">
-          <div class="column1" style="background-image: url('../../assets/images/pexels-photo-374074.jpeg')">
+          <div onclick="window.location='/recent-searches';" class="column1" style="background-image: url('../../assets/images/pexels-photo-374074.jpeg')">
             <h2 style="text-align: center; vertical-align: middle;padding-top: 36%">Recientes</h2>
           </div>
         </div>
         <div class="column">
-          <div class="column1" style="background-image: url('../../assets/images/populars_back.jpg')">
+          <div onclick="window.location='/popular-searches';" class="column1" style="background-image: url('../../assets/images/populars_back.jpg')">
             <h2 style="text-align: center; vertical-align: middle;padding-top: 36%">Populares</h2>
           </div>
         </div>
         <div class="column" style="background-color:transparent;">
-          <div class="column1" style="background-image: url('../../assets/images/favorites_back.jpg')">
+          <div onclick="window.location='/favorites';" class="column1" style="background-image: url('../../assets/images/favorites_back.jpg')">
             <h2 style="text-align: center; vertical-align: middle;padding-top: 36%">Favoritos</h2>
           </div>
         </div>
       </div>
     </div>
     <div *ngIf="!showHome">
+      <div *ngIf="showCamera" style="text-align:center">
+        <h2>
+          Take a snapshot of what you want to find
+        </h2>
+        <div>
+          <webcam [height]="500" [width]="500" [trigger]="triggerObservable" (imageCapture)="handleImage($event)" *ngIf="showWebcam"
+                  [allowCameraSwitch]="allowCameraSwitch" [switchCamera]="nextWebcamObservable"
+                  [videoOptions]="videoOptions"
+                  (cameraSwitched)="cameraWasSwitched($event)"
+                  (initError)="handleInitError($event)">
+          </webcam>
+          <br/>
+          <button class="actionBtn" (click)="triggerSnapshot();" style="margin-top: 20px; margin: 25px;"><i class="fas fa-camera"></i></button>
+          <button class="actionBtn2" (click)="toggleWebcam();" style="margin-top: 25px; border: none; margin: 25px;"><i class="fas fa-times"></i></button>
+          <br/>
+          <br/>
+        </div>
+      </div>
+      <h4 *ngIf="errors.length > 0">Messages:</h4>
+      <ul *ngFor="let error of errors">
+        <li>{{error | json}}</li>
+      </ul>
+    </div>
+    <div *ngIf="showResults">
       <div class="row">
-        <div class="column" style="background-color: #112233; width: 100%; margin-bottom: 4%; margin-top: -3%; opacity: 0.4;">
-          <div *ngIf="favorite">
+        <div class="column" style="background-color: #232f3e; width: 100%; margin-bottom: 4%; margin-top: -3%;">
+          <div *ngIf="favorite">Add to favorites
             <button class="btn" (click)="setFavorite($event)" style="float: right; margin-right: 30px;">
-              <i class="fa fa-star fa-2x checked" id="favorite"></i>
+              <i class="fa fa-heart fa-2x checked" id="favorite"></i>
             </button>
           </div>
           <div *ngIf="!favorite">
             <button class="btn" (click)="setFavorite($event)" style="float: right; margin-right: 30px;">
-              <i class="fa fa-star fa-2x" id="nofavorite"></i>
+              <i class="fa fa-heart fa-2x" id="nofavorite"></i>
             </button>
           </div>
-          <div class="circular--landscape"><img class="image" src="../assets/images/imageSearched_ex.jpg" /></div>
+          <div class="circular--landscape">
+            <div *ngIf="!isWebImage" style="max-width: 18rem; height: 50rem;">
+              <img class="cImage" style="max-width: 18rem; height: 20rem; width: 200px; margin-left: -17px;" [src]="webcamImage.imageAsDataUrl"/>
+            </div>
+            <div *ngIf="isWebImage" style="max-width: 18rem; height: 50rem;">
+              <img class="wImage" style="max-width: 18rem; height: 20rem;
+                width: 200px; margin-left: -17px;" [src]="_DomSanitizer.bypassSecurityTrustUrl('data:image/jpeg;base64,' + cmImage)" />
+            </div>
+          </div>
+          <button class="cameraIcon" (click)="hideView()" style="color: white; background-color: #232f3e; margin: 10px; transform: scale(1) !important;">
+            <i class="fas fa-camera"></i>
+          </button>
+          <button class="dropIcon" (click)="hideViewCamera()" style="color: white; background-color: #232f3e; margin: 10px; border: none">
+            <i class="fa fa-plus-circle" aria-hidden="true"></i>
+          </button>
         </div>
       </div>
       <div class="container">
@@ -75,16 +116,19 @@
           <button class="btn btn-primary" (click)="getResults()">Submit</button>
       </div>
       <br/>
+      <div *ngIf="success">
         <div *ngFor="let result of webLinks" [result]="result">
-          <div class="card" style="max-width: 18rem; max-height:50rem; float: left;">
+          <div class="card" style="max-width: 18rem; max-height:50rem; float: left; margin-bottom: 30px;">
             <img class="card-img-top" src="{{result.imageLink}}" style="max-width: 18rem; height: 20rem; border: 1px solid grey;" alt="Card image cap">
             <div class="card-body">
               <h5 class="card-title">{{result.shopLink}}</h5>
-              <p class="card-text">{{result.title}}</p>
+              <div style="margin-bottom: 10px;"><p class="card-text">{{result.title}}</p></div>
               <a href="{{result.webLink}}" class="btn btn-primary" target="_blank">Go</a>
             </div>
           </div>
         </div>
+      </div>
+      <div *ngIf="!success" style="text-align: center"><h3>No results available to show</h3><i class="fa fa-frown-o fa-2x" aria-hidden="true"></i></div>
     </div>
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
     <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>

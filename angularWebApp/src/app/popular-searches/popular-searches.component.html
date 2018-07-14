@@ -11,28 +11,21 @@
   </head>
   <body>
     <div class="row">
-      <div class="column" style="background-color: #112233; width: 100%; margin-bottom: 4%; margin-top: -3%; opacity: 0.4;">
-        <div class="circular--landscape"><img class="image" src="../assets/images/favorites.png" /></div>
+      <div class="column" style="background-color: #232f3e; width: 100%; margin-bottom: 4%; margin-top: -3%;">
+        <div class="circular--landscape"><img class="image" src="../assets/images/popular-searches-icon.png" style="margin-left: -13px; transform: scale(0.9);"/></div>
       </div>
     </div>
-    <!-- <div *ngIf="favorite">
-      <button class="btn" (click)="setFavorite($event)" style="float: right; margin-right: 30px;">
-        <i class="fa fa-star fa-2x checked" id="favorite"></i>
-      </button>
-    </div>
-    <div *ngIf="!favorite">
-      <button class="btn" (click)="setFavorite($event)" style="float: right; margin-right: 30px;">
-        <i class="fa fa-star fa-2x" id="nofavorite"></i>
-      </button>
-    </div>  -->
-    <div *ngFor="let result of webLinks">
-      <div class="card" style="max-width: 18rem; max-height:50rem; float: left; margin-bottom: 15px;">
-        <img class="card-img-top" id="image" src="{{result.image}}" style="max-width: 18rem; height: 20rem; border: 1px solid grey;" alt="Card image cap">
-        <div class="card-body">
-          <h5 class="card-title">{{result.title}}</h5>
-          <a href="{{result.link}}" class="btn btn-primary" target="_blank">Go</a>
+    <div *ngIf="success">
+      <div *ngFor="let result of webLinks">
+        <div class="card" style="max-width: 18rem; max-height:50rem; float: left; margin-bottom: 30px;">
+          <img class="card-img-top" id="image" src="{{result.image}}" style="max-width: 18rem; height: 20rem; border: 1px solid grey;" alt="Card image cap">
+          <div class="card-body">
+            <h5 class="card-title">{{result.title}}</h5>
+            <a href="{{result.link}}" class="btn btn-primary" target="_blank">Go</a>
+          </div>
         </div>
       </div>
     </div>
+    <div *ngIf="!success" style="text-align: center"><h3>No results available to show</h3><i class="fa fa-frown-o fa-2x" aria-hidden="true"></i></div>
   </body>
 </html>

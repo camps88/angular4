@@ -11,18 +11,34 @@
   </head>
   <body>
     <div class="row">
-      <div class="column" style="background-color: #112233; width: 100%; margin-bottom: 4%; margin-top: -3%; opacity: 0.4;">
-        <div class="circular--landscape"><img class="image" src="../assets/images/imageSearched_ex.jpg" /></div>
+      <div class="column" style="background-color: #232f3e; width: 100%; margin-bottom: 4%; margin-top: -3%;">
+        <div class="circular--landscape"><img class="image" src="../assets/images/recent-searches-icon.png" style="margin-left: 0px !important" /></div>
       </div>
     </div>
   </body>
 </html>
-<div *ngFor="let result of webLinks">
-  <div class="card" style="max-width: 18rem; max-height:50rem; float: left;">
-    <img class="card-img-top" id="image" src="{{result.image}}" style="max-width: 18rem; height: 20rem; border: 1px solid grey;" alt="Card image cap">
-    <div class="card-body">
-      <h5 class="card-title">{{result.title}}</h5>
-      <!--<a href="{{result.webLink}}" class="btn btn-primary" target="_blank">Go</a>-->
+<div *ngIf="success">
+  <div *ngIf="!show">
+    <div *ngFor="let result of webLinks">
+      <div class="card" style="max-width: 18rem; max-height:50rem; float: left; margin-bottom: 30px;">
+        <img class="card-img-top" id="image" [src]="_DomSanitizer.bypassSecurityTrustUrl('data:image/jpeg;base64,' + result.image)" style="max-width: 18rem; height: 20rem; border: 1px solid grey;" alt="Card image cap">
+        <div class="card-body">
+          <h5 class="card-title">{{result.title}}</h5>
+          <button (click)="showItems(result.items)" class="btn btn-primary">Go</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="show">
+    <div *ngFor="let item of items">
+      <div class="card" style="max-width: 18rem; max-height:50rem; float: left; margin-bottom: 30px;">
+        <img class="card-img-top" id="image" [src]="item.pagemap.cse_image[0].src" style="max-width: 18rem; height: 20rem; border: 1px solid grey;" alt="Card image cap">
+        <div class="card-body">
+          <h5 class="card-title">{{item.title}}</h5>
+          <a href="{{item.link}}" class="btn btn-primary" target="_blank">Go</a>
+        </div>
+      </div>
     </div>
   </div>
 </div>
+<div *ngIf="!success" style="text-align: center"><h3>No results available to show</h3><i class="fa fa-frown-o fa-2x" aria-hidden="true"></i></div>

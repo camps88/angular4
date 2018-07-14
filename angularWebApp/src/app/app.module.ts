@@ -11,7 +11,8 @@ import { SignupComponent } from './signup/signup.component';
 import { RecentSearchesComponent } from './recent-searches/recent-searches.component';
 import { FavoritesComponent } from './favorites/favorites.component';
 import { PopularSearchesComponent } from './popular-searches/popular-searches.component';
-
+import { WebcamModule } from 'ngx-webcam';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 
 @NgModule({
@@ -28,6 +29,8 @@ import { PopularSearchesComponent } from './popular-searches/popular-searches.co
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+    WebcamModule,
+    NgxSpinnerModule,    
   ],
   providers: [ApiService],
   bootstrap: [AppComponent],

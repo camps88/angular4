@@ -11,7 +11,7 @@ import { DomSanitizer, SafeResourceUrl, SafeUrl } from '@angular/platform-browse
 export class FavoritesComponent implements OnInit {
 
   constructor(private apiService: ApiService,
-              private _domSanitizer: DomSanitizer) { }
+              private _DomSanitizer: DomSanitizer) { }
 
   data: any = {};
   results = {};
@@ -21,6 +21,8 @@ export class FavoritesComponent implements OnInit {
   originalImage: SafeUrl;
   favorite: boolean = false;
   state: any;
+  items: Array<Object[]>;
+  show:boolean;
 
   ngOnInit() {
     this.webLinks = [];
@@ -29,12 +31,12 @@ export class FavoritesComponent implements OnInit {
       console.log(this.data);
       let items = this.data;
       for (let i=0; i < items.length; i++) {
-        this.originalImage = this._domSanitizer.bypassSecurityTrustUrl(this.data[i].originalImage);
-        console.log(this.originalImage);
+        let titleShorted = items[i].description[0].slice(0,25) + '...';
+        console.log(titleShorted);
         this.results = {
           id: items[i]._id,
-          image: this.originalImage,
-          title: items[i].displayLink,
+          image: items[i].originalImage,
+          title: titleShorted,
           items: items[i].content.items,
         }
         this.webLinks.push(this.results);
@@ -54,6 +56,11 @@ export class FavoritesComponent implements OnInit {
       console.log(data);
       this.state = data;
     });
+  }
+
+  showItems(results) {
+    this.show = true;
+    return this.items = results;
   }
 
 }

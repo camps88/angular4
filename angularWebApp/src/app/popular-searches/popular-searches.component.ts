@@ -29,35 +29,29 @@ export class PopularSearchesComponent implements OnInit {
       console.log(this.data);
       let keys = Object.keys(this.data);
       console.log(keys);
-      for (let i=0; i < keys.length; i++) {
-        let items = this.data[keys[i]].items;
-        console.log(items);
-        for (let j=0; j < items.length; j++) {
-      //    this.originalImage = this._domSanitizer.bypassSecurityTrustUrl(this.data[i].originalImage);
-          this.results = {
-            link: items[j].formattedUrl,
-            image: items[j].pagemap.cse_image[0].src,
-            title: items[j].displayLink,
+      if (this.data !== undefined) {
+        for (let i=0; i < keys.length; i++) {
+          let items = this.data[keys[i]].items;
+          console.log(items);
+          for (let j=0; j < items.length; j++) {
+            let titleShorted = items[j].displayLink.slice(0,25) + '...';
+            console.log(titleShorted);
+            this.results = {
+              link: items[j].formattedUrl,
+              image: items[j].pagemap.cse_image[0].src,
+              title: titleShorted,
+            }
+            this.webLinks.push(this.results);
           }
-          console.log('1');
-          this.webLinks.push(this.results);
-        }
-        console.log('2');
-        console.warn(this.webLinks);
-        this.popularLinks1.push(this.webLinks);
-    /*    if (i == 0) {
-          console.log('pop1');
-          console.log(this.webLinks);
+          console.warn(this.webLinks);
           this.popularLinks1.push(this.webLinks);
-          console.log(this.popularLinks1);
-        }else {
-          console.log('pop2');
-          this.popularLinks2.push(this.webLinks);
+          this.success = true;
         }
-*/
+      }else {
+        this.success = false;
       }
+
       console.log(this.popularLinks1[0]);
-    //  console.log(this.popularLinks2);
     });
   }
 
@@ -75,12 +69,5 @@ export class PopularSearchesComponent implements OnInit {
     });
   }
 
-  /*
-  if (document.getElementById('favorite')) {
-    this.favorite = false;
-  }else {
-    this.favorite = true;
-  }
-  */
 
 }
