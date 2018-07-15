@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../api/api.service';
 import { DomSanitizer, SafeResourceUrl, SafeUrl } from '@angular/platform-browser';
+import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
+
 
 @Component({
   selector: 'app-popular-searches',
@@ -18,13 +20,16 @@ export class PopularSearchesComponent implements OnInit {
   object: any = {};
   favorite: boolean;
   state: any;
+  success: boolean = true;
 
   constructor(private apiService: ApiService,
-              private _domSanitizer: DomSanitizer) { }
+              private _domSanitizer: DomSanitizer,
+              private spinnerService: Ng4LoadingSpinnerService) { }
 
   ngOnInit() {
+    this.spinnerService.show();
     this.webLinks = [];
-    this.apiService.getPopulars().subscribe(data => {
+    const o = this.apiService.getPopulars().subscribe(data => {
       this.data = data;
       console.log(this.data);
       let keys = Object.keys(this.data);
@@ -46,13 +51,14 @@ export class PopularSearchesComponent implements OnInit {
           console.warn(this.webLinks);
           this.popularLinks1.push(this.webLinks);
           this.success = true;
+          this.spinnerService.hide();
         }
       }else {
         this.success = false;
       }
-
       console.log(this.popularLinks1[0]);
     });
+    setTimeout(() => { o.unsubscribe(); this.spinnerService.hide(); if (this.popularLinks1.length < 1) this.success = false;}, 40000);
   }
 
   setFavorite (image) {

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../api/api.service';
 import { DomSanitizer, SafeResourceUrl, SafeUrl } from '@angular/platform-browser';
+import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
+
 
 @Component({
   selector: 'app-recent-searches',
@@ -11,7 +13,8 @@ export class RecentSearchesComponent implements OnInit {
 
 
   constructor(private apiService: ApiService,
-              private _DomSanitizer: DomSanitizer) { }
+              private _DomSanitizer: DomSanitizer,
+              private spinnerService: Ng4LoadingSpinnerService) { }
 
   data: any = {};
   results = {};
@@ -20,13 +23,15 @@ export class RecentSearchesComponent implements OnInit {
   description = [];
   elements = [];
   originalImage: SafeResourceUrl;
-  show:boolean;
+  show: boolean = true;
+  success: boolean = true;
 
 
     ngOnInit() {
+      this.spinnerService.show();
       this.show = false;
       this.webLinks = [];
-      this.apiService.getRecentSearches().subscribe(data => {
+      const o = this.apiService.getRecentSearches().subscribe(data => {
         this.data = data;
         console.log(this.data);
         let items = this.data;
@@ -42,6 +47,7 @@ export class RecentSearchesComponent implements OnInit {
             }
             this.webLinks.push(this.results);
             this.success = true;
+            this.spinnerService.hide();
           }
         }else {
           this.success = false;
@@ -49,10 +55,16 @@ export class RecentSearchesComponent implements OnInit {
 
         console.log(this.webLinks);
       });
+      setTimeout(() => { o.unsubscribe(); this.spinnerService.hide(); if (this.data === undefined || this.data.description[0] === undefined) this.success = false;}, 40000);
     }
 
     showItems(results) {
       this.show = true;
       return this.items = results;
     }
+
+    goBack() {
+      this.show = false;
+    }
+
 }

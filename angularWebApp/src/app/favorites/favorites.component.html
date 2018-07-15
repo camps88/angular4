@@ -15,17 +15,17 @@
         <div class="circular--landscape"><img class="image" src="../assets/images/favorites-icon.png" style="margin-left: -13px; transform: scale(0.9);" /></div>
       </div>
     </div>
-
+  <div *ngIf="success">
     <div *ngIf="!show">
       <div *ngFor="let result of webLinks">
         <div class="card" style="max-width: 18rem; max-height:50rem; float: left; margin-bottom: 30px;">
           <div *ngIf="favorite">
-            <button class="btn" (click)="setFavorite($event)" style="float: right; margin-right: 30px;">
+            <button class="btn" (click)="setFavorite(result)" style="float: right; margin-right: 30px; position: absolute; margin-top: 5%; margin-left: 23%;">
               <i class="fa fa-heart checked" id="favorite"></i>
             </button>
           </div>
-          <div *ngIf="!favorite">Add to favorites
-            <button class="btn" (click)="setFavorite($event)" style="float: right; margin-right: 30px;">
+          <div *ngIf="!favorite">
+            <button class="btn" (click)="setFavorite(result)" style="float: right; margin-right: 30px; position: absolute; margin-top: 5%; margin-left: 23%;">
               <i class="fa fa-heart" id="nofavorite"></i>
             </button>
           </div>
@@ -48,6 +48,7 @@
         </div>
       </div>
     </div>
-
+  </div>
+  <div *ngIf="!success" style="text-align: center"><h3>No results available to show</h3><i class="fa fa-frown-o fa-2x" aria-hidden="true"></i></div>
   </body>
 </html>

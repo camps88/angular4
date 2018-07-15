@@ -12,7 +12,7 @@ import { RecentSearchesComponent } from './recent-searches/recent-searches.compo
 import { FavoritesComponent } from './favorites/favorites.component';
 import { PopularSearchesComponent } from './popular-searches/popular-searches.component';
 import { WebcamModule } from 'ngx-webcam';
-import { NgxSpinnerModule } from 'ngx-spinner';
+import { Ng4LoadingSpinnerModule } from 'ng4-loading-spinner';
 
 
 @NgModule({
@@ -30,7 +30,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     AppRoutingModule,
     HttpClientModule,
     WebcamModule,
-    NgxSpinnerModule,    
+    Ng4LoadingSpinnerModule.forRoot(),   
   ],
   providers: [ApiService],
   bootstrap: [AppComponent],

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../api/api.service';
 import { DomSanitizer, SafeResourceUrl, SafeUrl } from '@angular/platform-browser';
+import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
 
 
 @Component({
@@ -11,7 +12,8 @@ import { DomSanitizer, SafeResourceUrl, SafeUrl } from '@angular/platform-browse
 export class FavoritesComponent implements OnInit {
 
   constructor(private apiService: ApiService,
-              private _DomSanitizer: DomSanitizer) { }
+              private _DomSanitizer: DomSanitizer,
+              private spinnerService: Ng4LoadingSpinnerService) { }
 
   data: any = {};
   results = {};
@@ -19,33 +21,47 @@ export class FavoritesComponent implements OnInit {
   description = [];
   elements = [];
   originalImage: SafeUrl;
-  favorite: boolean = false;
+  favorite: boolean = true;
   state: any;
   items: Array<Object[]>;
   show:boolean;
+  success: boolean = true;
 
   ngOnInit() {
+    this.spinnerService.show();
     this.webLinks = [];
-    this.apiService.getFavorites().subscribe(data => {
+    const o = this.apiService.getFavorites().subscribe(data => {
       this.data = data;
       console.log(this.data);
       let items = this.data;
       for (let i=0; i < items.length; i++) {
-        let titleShorted = items[i].description[0].slice(0,25) + '...';
-        console.log(titleShorted);
-        this.results = {
-          id: items[i]._id,
-          image: items[i].originalImage,
-          title: titleShorted,
-          items: items[i].content.items,
+        if (items !== undefined) {
+          let titleShorted = items[i].description[0].slice(0,25) + '...';
+          console.log(titleShorted);
+          this.results = {
+            id: items[i]._id,
+            image: items[i].originalImage,
+            title: titleShorted,
+            items: items[i].content.items,
+          }
+          this.favorite = true;
+          this.webLinks.push(this.results);
+          this.success = true;
+          this.spinnerService.hide();
+        }else {
+          this.favorite = false;
+          this.success = false;
+          this.spinnerService.hide();
         }
-        this.webLinks.push(this.results);
       }
     });
+    setTimeout(() => { o.unsubscribe(); this.spinnerService.hide(); if ( this.data.length < 1)  this.success = false;  }, 10000);
+
   }
 
   setFavorite (image) {
-    console.warn(image.data);
+    this.spinnerService.show();
+    console.warn(image);
     if (document.getElementById('favorite')) {
       this.favorite = false;
     }else {
@@ -55,6 +71,7 @@ export class FavoritesComponent implements OnInit {
     this.apiService.setFavorite(image.id).subscribe(data => {
       console.log(data);
       this.state = data;
+      this.spinnerService.hide();
     });
   }
 

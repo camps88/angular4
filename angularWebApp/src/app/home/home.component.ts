@@ -5,8 +5,7 @@ import {Subject} from 'rxjs/Subject';
 import {Observable} from 'rxjs/Observable';
 import {WebcamImage, WebcamInitError, WebcamUtil} from 'ngx-webcam';
 import { DomSanitizer, SafeResourceUrl, SafeUrl } from '@angular/platform-browser';
-import { NgxSpinnerService } from 'ngx-spinner';
-
+import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
 
 @Component({
   selector: 'app-home',
@@ -33,7 +32,7 @@ export class HomeComponent implements OnInit {
 
   constructor(private apiService: ApiService,
               private _DomSanitizer: DomSanitizer,
-              private spinner: NgxSpinnerService) { }
+              private spinnerService: Ng4LoadingSpinnerService) { }
 
   showHome: boolean;
   showResults: boolean;
@@ -41,10 +40,11 @@ export class HomeComponent implements OnInit {
   hideResults: boolean;
   checkboxEbay: boolean;
   checkboxAmazon: boolean;
+  success: boolean;
 
 
   ngOnInit() {
-    this.spinner.show();
+    this.success = true;
     this.showHome = true;
     this.showResults = false;
     this.filtered = false;
@@ -71,7 +71,9 @@ export class HomeComponent implements OnInit {
   cmImage: any;
 
 
+
   dropFile (event) {
+    this.spinnerService.show();
     console.log(event);
     console.log(event.dataTransfer.files);
     event.preventDefault();
@@ -109,6 +111,7 @@ export class HomeComponent implements OnInit {
     this.showHome = false;
     this.showResults = false;
     this.showCamera = true;
+    this.success = true;
   }
 
   hideViewCamera () {
@@ -121,13 +124,13 @@ export class HomeComponent implements OnInit {
     this.showHome = false;
     this.showResults = true;
     this.image = imageUploaded;
-    this.apiService.uploadImage(imageUploaded).subscribe(data => {
+    const o = this.apiService.uploadImage(imageUploaded).subscribe(data => {
         this.data = data;
         console.log(this.data);
         let items = this.data.image.items;
         if (items !== undefined) {
           for (let i=0; i < items.length; i++) {
-              if (items[i] !== undefined && items[i].pagemap) {
+              if (items[i] !== undefined && items[i].pagemap !== undefined) {
                 let titleShorted = items[i].title.slice(0,25) + '...';
                 console.log(titleShorted);
                 this.results = {
@@ -141,10 +144,14 @@ export class HomeComponent implements OnInit {
               }
           }
         this.success = true;
+        this.spinnerService.hide();
         }else {
+          this.success = false;
+          this.spinnerService.hide();
           console.warn('No results available to show!');
         }
-    );
+    });
+    setTimeout(() => { o.unsubscribe(); this.spinnerService.hide(); if ( this.data.image === undefined || this.data.image.items === undefined)  this.success = false;  }, 10000);
   }
 
   public triggerSnapshot(): void {
@@ -152,6 +159,7 @@ export class HomeComponent implements OnInit {
       this.showCamera = false;
       this.webLinks = [];
       this.isWebImage = false;
+      this.spinnerService.show();
     }
 
   public toggleWebcam(): void {
@@ -208,6 +216,7 @@ export class HomeComponent implements OnInit {
   }
 
   getResults() {
+    this.spinnerService.show();
     this.webLinks = [];
     // this.webLinksFiltered = [];
     if (this.filters.length < 1) {
@@ -231,6 +240,7 @@ export class HomeComponent implements OnInit {
                 }
                 this.webLinks.push(this.filteredResults);
                 console.log(this.webLinksFiltered);
+                this.spinnerService.hide();
               }
           }
         });

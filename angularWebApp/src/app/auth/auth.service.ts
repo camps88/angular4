@@ -69,9 +69,11 @@ export class AuthService {
     let userId = this.http.post('http://localhost:3003/auth', this.user, httpOptions)
         .subscribe(data => {
           console.log(data);
+          this.getUserInfo(this.user);
+          console.log(userId);
         });
-    this.getUserInfo();
-    console.log(userId);
+
+
   }
 
   public logout(): void {
@@ -90,7 +92,7 @@ export class AuthService {
     return new Date().getTime() < expiresAt;
   }
 
-  public getUserInfo () {
-    return this.user;
+  public getUserInfo(user?) {
+    return user;
   }
 }

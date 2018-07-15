@@ -12,8 +12,8 @@
       <!-- Navigation -->
       <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
         <div class="icon-bar">
-          <div class="row">
-            <div class="column col-md-4">
+          <div class="row" style="display: inline-block">
+            <div class="column">
               <button
               class="btn btn-primary btn-margin"
               *ngIf="!auth.isAuthenticated()"
@@ -27,8 +27,14 @@
                   Log Out
               </button>
             </div>
-            <div *ngIf="userName !== undefined" class="column col-md-4" style = "color: white;"><p>Welcome, </p>{{userName}}</div>
-            <div class="column col-md-4"><img style = "color: white;" src="userAvatar" alt="Avatar" class="avatar"></div>
+            <div *ngIf="auth.isAuthenticated()" class="column" style="position: absolute">
+              <div style="position: absolute; color: white; font-size: 18px;"></div>
+              <img style="color: white; float: right" src="https://lh3.googleusercontent.com/-YHu-BK-hRDY/AAAAAAAAAAI/AAAAAAAAAAA/AAnnY7qc-8sai1FrzKdY3xrh8x5RrWKDmQ/mo/photo.jpg" alt="Avatar" class="avatar" />
+            </div>
+            <div *ngIf="!auth.isAuthenticated()" class="column" style="position: absolute">
+              <div style="position: absolute; color: white; font-size: 18px;"></div>
+              <img style = "color: white;" src="./assets/images/userAvatar.png" alt="Avatar" class="avatar" />
+            </div>
           </div>
         </div>
           <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
@@ -72,6 +78,7 @@
         <gcse:search></gcse:search>
     </div>
     <router-outlet></router-outlet>
+    <ng4-loading-spinner> </ng4-loading-spinner>
     <app-footer></app-footer>
     <!-- /#page-wrapper -->
 </div><!-- /#wrapper -->

@@ -26,11 +26,11 @@
               </tbody>
           </table>
       </div>
-      <div style="font-size: 20px; font-family: Roboto sans-seriff; color: #112233">Or take a picture from your webcam!</div>
+      <div style="font-size: 23px; font-family: Roboto sans-serif; color: #112233">Or take a picture from your webcam!</div>
       <br/>
       <br/>
       <button class="cameraIcon" (click)="hideView()"><i class="fas fa-camera"></i></button>
-      <div class="row" style="margin-left: 10%; height:80px;" >
+      <div class="row" style="height:80px; justify-content: center;" >
         <div class="column">
           <div onclick="window.location='/recent-searches';" class="column1" style="background-image: url('../../assets/images/pexels-photo-374074.jpeg')">
             <h2 style="text-align: center; vertical-align: middle;padding-top: 36%">Recientes</h2>
@@ -75,13 +75,13 @@
     <div *ngIf="showResults">
       <div class="row">
         <div class="column" style="background-color: #232f3e; width: 100%; margin-bottom: 4%; margin-top: -3%;">
-          <div *ngIf="favorite">Add to favorites
-            <button class="btn" (click)="setFavorite($event)" style="float: right; margin-right: 30px;">
+          <div *ngIf="favorite">
+            <button class="btn" (click)="setFavorite($event)" style="position: absolute; margin: 2%; float: left;">
               <i class="fa fa-heart fa-2x checked" id="favorite"></i>
             </button>
           </div>
           <div *ngIf="!favorite">
-            <button class="btn" (click)="setFavorite($event)" style="float: right; margin-right: 30px;">
+            <button class="btn" (click)="setFavorite($event)" style="position: absolute; margin: 2%; float: left;">
               <i class="fa fa-heart fa-2x" id="nofavorite"></i>
             </button>
           </div>

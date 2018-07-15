@@ -142,7 +142,7 @@
     background-color: transparent;
     margin-right: 100px;
 }
-
+/*
 .column {
   display: inline-block;
   width: 100px;
@@ -152,8 +152,26 @@
   margin-right: 3px;
   vertical-align: middle;
 }
+*/
+.column {
+    display: inline-block;
+    float: left;
+    width: auto;
+    padding: 10px;
+    top: 0;
+}
+.column1{
+
+  width: 108%;
+  height: 110%;
+  margin-top: -30px;
+  opacity: 0.3;
+  filter: alpha(opacity=50);
+  background-size: 281px 225px;
+}
+
 .icon-bar a {
-    display: block; /* Make the links appear below each other instead of side-by-side */
+    display: inline-block; /* Make the links appear below each other instead of side-by-side */
     text-align: center; /* Center-align text */
     padding: 16px; /* Add some padding */
     transition: all 0.3s ease; /* Add transition for hover effects */
@@ -192,12 +210,10 @@ input:valid ~ span:after {
   margin-left: 20px;
 }
 
-.btn.btn-primary.btn-margin{
-  padding-left: -50px;
-}
+
 
 nav.navbar.navbar-inverse.navbar-fixed-top{
-  height: 63px;
+  height: 7%;
   position: fixed !important;
 }
 

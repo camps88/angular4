@@ -10,15 +10,26 @@ import { AuthService } from './auth/auth.service';
 })
 export class AppComponent {
   title = 'SpotIT';
+  userName: any;
+  userAvatar: any;
+  show: boolean
 
   constructor(public auth : AuthService) {
     auth.handleAuthentication();
-    let user = auth.getUserInfo();
-    console.log(user);
-    // let userName = user.firstName;
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    let user = this.auth.getUserInfo();
+    if (this.auth.isAuthenticated()) {
+      this.show = true;
+      this.userName = 'David Campos';
+    }else {
+      this.show = false;
+      this.userName = '';
+    }
+    console.log(user);
+    //this.userName = user.name.firstName;
+  }
 
 
 }
